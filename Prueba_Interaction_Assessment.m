@@ -85,3 +85,82 @@ ylabel('Parte Imaginaria');
 title('Eigenlocus unstable case');
 legend('Lambda 1', 'Lambda 2')
 grid on;
+
+%% Test
+clc
+clear
+% Load data from FD scan
+load('Yqd_grid_2.mat');
+load('Yqd_grid_nostable.mat');
+load('Yqd_GFL_100f.mat');
+
+% Performing "det" and "eig" operations
+clear M_1 M_2 N_1 N_2
+for n=1:length(fd0)
+    Zgrid_stable=inv([Yqq_g(n) Yqd_g(n) 
+                      Ydq_g(n) Ydd_g(n)]);
+    Zgrid_unstable=inv([Yqq_g_ns(n) Yqd_g_ns(n) 
+                        Ydq_g_ns(n) Ydd_g_ns(n)]);
+    Y_GFL=[Yqq(n) Yqd(n) 
+           Ydq(n) Ydd(n)];
+
+    
+    % % Matlab suggested GNC evaluation
+    L_1(:,:,n)=Zgrid_stable*Y_GFL;
+    L_2(:,:,n)=Zgrid_unstable*Y_GFL;
+end
+
+% L_11 = squeeze(L_1(1,1,:))';
+% L_12 = squeeze(L_1(1,2,:))';
+% L_21 = squeeze(L_1(2,1,:))';
+% L_22 = squeeze(L_1(2,2,:))';
+L_11 = Yqq;
+L_12 = Yqd;
+L_21 = Ydq;
+L_22 = Ydd;
+
+w = 2*pi*fd0;
+
+n = 2;
+m = 2;
+
+[b11, a11] = invfreqs(L_11, w, n, m);
+[b12, a12] = invfreqs(L_12, w, n, m);
+[b21, a21] = invfreqs(L_21, w, n, m);
+[b22, a22] = invfreqs(L_22, w, n, m);
+
+H11_tf = tf(b11, a11);
+H12_tf = tf(b12, a12);
+H21_tf = tf(b21, a21);
+H22_tf = tf(b22, a22);
+
+H11_tf = tf(b11, a11);
+H12_tf = tf(b12, a12);
+H21_tf = tf(b21, a21);
+H22_tf = tf(b22, a22);
+
+Hsys = [H11_tf, H12_tf; 
+        H21_tf, H22_tf];
+
+% generate a 2x2 MIMO transfer function. Note this is an example (2.7) in
+% Maciejowski, Multivariable Feedback Design
+index = 1;
+
+for k=-1000:0.1:1000;
+
+    s = 1i * 2 * pi *k;
+    a11 = evalfr(H11_tf, s);
+    a12 = evalfr(H12_tf, s);
+    a21 = evalfr(H21_tf, s);
+    a22 = evalfr(H22_tf, s);
+
+    G=[a11, a12; a21, a22];
+
+    % Generate the eigen loci, there should be 2, and they should connect when plotted!
+
+    E(:,index)=eig(G);
+    index = index +1;
+end
+
+RHP_poles = sum(real(pole(Hsys)) > 0)
+plot_eigenvalues_in_sequence(-1000:0.1:1000, E);
