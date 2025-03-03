@@ -3,9 +3,9 @@ fd0 = x;
 GLF = A;
 Grid = B;
 
-figure
+figure(1)
 subplot(2,1,1)
-semilogx(fd0, 20*log10(abs(GLF)), 'DisplayName', 'Converter')
+semilogx(fd0, 20*log10(abs(GLF)), 'DisplayName', 'GFL')
 hold on
 semilogx(fd0, 20*log10(abs(Grid)), 'DisplayName', 'Grid')
 hold off
@@ -17,7 +17,7 @@ grid on
 title(name + " magnitude")
 
 subplot(2,1,2)
-semilogx(fd0, angle(GLF), 'DisplayName', 'Converter')
+semilogx(fd0, angle(GLF), 'DisplayName', 'GFL')
 hold on
 semilogx(fd0, angle(Grid), 'DisplayName', 'Grid')
 hold off
