@@ -6,26 +6,6 @@ function plot_ordered_eigenvalues(frequencies, eigenvalues)
     % Numero di frequenze
     N = length(frequencies);
 
-    %% Caso non ordinato
-%     ordered_eigenvalues = eigenvalues;
-% 
-%     % Plot degli autovalori ordinati nel piano complesso
-%     figure;
-%     hold on;
-%     grid on;
-%     xlabel('Re(\lambda)');
-%     ylabel('Im(\lambda)');
-%     title('Evoluzione ordinata degli autovalori rispetto alla frequenza (disordinato)');
-% 
-%     % Plotta le traiettorie degli autovalori
-%     h1 = plot(real(ordered_eigenvalues(1, :)), imag(ordered_eigenvalues(1, :)), '-o', 'DisplayName', 'Eigenvalue 1', 'Color',"m");
-%     h2 = plot(real(ordered_eigenvalues(1, :)), -imag(ordered_eigenvalues(1, :)), '-o','Color',"m");
-%     h3 = plot(real(ordered_eigenvalues(2, :)), imag(ordered_eigenvalues(2, :)), '-o', 'DisplayName', 'Eigenvalue 2','Color',"b");
-%     h4 = plot(real(ordered_eigenvalues(2, :)), -imag(ordered_eigenvalues(2, :)), '-o','Color',"b");
-%     h5 = plot(0, 0, 'pentagram', 'MarkerSize', 5, 'Color', "g","LineWidth",2); 
-%     legend([h1, h3]);
-%     hold off;
-% 
 %% Caso ordinato 
     ordered_eigenvalues = scambia_completamente(eigenvalues);
 
@@ -35,22 +15,22 @@ function plot_ordered_eigenvalues(frequencies, eigenvalues)
     grid on;
     xlabel('Re(\lambda)');
     ylabel('Im(\lambda)');
-    title('Evoluzione ordinata degli autovalori rispetto alla frequenza (ordinato)');
+    title('Eigenvalues of MIMO open loop L(S)');
 
     % Plotta le traiettorie degli autovalori
-    h1 = plot(real(ordered_eigenvalues(1, :)), imag(ordered_eigenvalues(1, :)), '-o', 'DisplayName', 'Eigenvalue 1', 'Color',"m");
+    h1 = plot(real(ordered_eigenvalues(1, :)), imag(ordered_eigenvalues(1, :)), '-o', 'DisplayName', 'Eigenvalue 1 [0,+\inf]', 'Color',"r");
     % HP: the system GFL+Grid process just real signals in time and do not
     % produce any complex responce (example: a step in power will not
     % produce a complex voltage or current etc.) Therefore the system
     % stidied in small signal is LTI Hermitian with G(-jw)=conj(G(jw)) so
     % the transfer funcion of L(jw) should have [-inf,0] simmetrical to
     % [0,inf] domain. 
-    h2 = plot(real(ordered_eigenvalues(1, :)), -imag(ordered_eigenvalues(1, :)), '-o','Color',"m");
+    h2 = plot(real(ordered_eigenvalues(1, :)), -imag(ordered_eigenvalues(1, :)), '-o','DisplayName', 'Eigenvalue 1 [-inf,0]','Color',"b");
     
-    h3 = plot(real(ordered_eigenvalues(2, :)), imag(ordered_eigenvalues(2, :)), '-o', 'DisplayName', 'Eigenvalue 2','Color',"b");
+    h3 = plot(real(ordered_eigenvalues(2, :)), imag(ordered_eigenvalues(2, :)), '-o', 'DisplayName', 'Eigenvalue 2 [0,+inf]','Color',"y");
     % The same here
-    h4 = plot(real(ordered_eigenvalues(2, :)), -imag(ordered_eigenvalues(2, :)), '-o','Color',"b");
-    h5 = plot(0, 0, 'pentagram', 'MarkerSize', 5, 'Color', "g","LineWidth",2); 
-    legend([h1, h3]);
+    h4 = plot(real(ordered_eigenvalues(2, :)), -imag(ordered_eigenvalues(2, :)), '-o','DisplayName', 'Eigenvalue 2 [-inf,0]','Color',"g");
+    h5 = plot(-1, 0, 'pentagram', 'MarkerSize', 5, 'Color', "m","LineWidth",2); 
+    legend([h2, h1, h4, h3]);
     hold off;
 end
