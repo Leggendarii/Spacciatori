@@ -3,7 +3,7 @@ fd0 = x;
 GLF = A;
 Grid = B;
 
-figure(1)
+figure
 subplot(2,1,1)
 semilogx(fd0, 20*log10(abs(GLF)), 'DisplayName', 'GFL')
 hold on

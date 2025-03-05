@@ -1,8 +1,9 @@
-function plot_ordered_eigenvalues(frequencies, eigenvalues)
+function plot_ordered_eigenvalues(frequencies, eigenvalues, critical_visible)
     % INPUT:
     % frequencies  - Vettore delle frequenze in Hz (1xN)
     % eigenvalues  - Matrice (2xN) con gli autovalori già calcolati
-    
+    % critical_visible - 0/1 value che fa vedere o no il punto -1
+
     % Numero di frequenze
     N = length(frequencies);
 
@@ -30,7 +31,9 @@ function plot_ordered_eigenvalues(frequencies, eigenvalues)
     h3 = plot(real(ordered_eigenvalues(2, :)), imag(ordered_eigenvalues(2, :)), '-o', 'DisplayName', 'Eigenvalue 2 [0,+inf]','Color',"y");
     % The same here
     h4 = plot(real(ordered_eigenvalues(2, :)), -imag(ordered_eigenvalues(2, :)), '-o','DisplayName', 'Eigenvalue 2 [-inf,0]','Color',"g");
-    h5 = plot(-1, 0, 'pentagram', 'MarkerSize', 5, 'Color', "m","LineWidth",2); 
+    if critical_visible == 1
+        h5 = plot(-1, 0, 'pentagram', 'MarkerSize', 5, 'Color', "m","LineWidth",2); 
+    end
     legend([h2, h1, h4, h3]);
     hold off;
 end

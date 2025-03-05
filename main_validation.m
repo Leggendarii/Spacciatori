@@ -44,7 +44,7 @@ end
 % unstable, N=0 -> Stable
 % 4: il bro conta i giri attorno a -1 pero
 
-plot_eigenvalues_in_sequence(1:100, Loop(:,1:100));
+plot_eigenvalues_in_sequence(1:100, Loop(:,1:100), 1);
 
 %% Test of stability via determinant
 figure
