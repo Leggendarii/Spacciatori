@@ -1,5 +1,6 @@
 clc
 clear
+close all
 
 %% Load data from FD scan
 load('Yqd_grid_stable_110f.mat');
@@ -43,6 +44,8 @@ end
 % 3: N= Z-P del denominatore: N>0 -> Closed loop unstable, N<0-> Loop Gain
 % unstable, N=0 -> Stable
 % 4: il bro conta i giri attorno a -1 pero
+Z_grid = {Zgrid_stable, Zgrid_unstable};
+Y_conv = {Y_GFL};
 
-bode_plot_full(fd0, Y_GFL, Zgrid_unstable)
-plot_eigenvalues_in_sequence(1:length(fd0), E_loop_unstable, 1);
+bode_plot_full(fd0, Y_conv, Z_grid)
+% plot_eigenvalues_in_sequence(1:length(fd0), E_loop_unstable, 1);
