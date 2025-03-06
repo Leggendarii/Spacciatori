@@ -31,6 +31,8 @@ for n=1:length(fd0)
 end
 
 %% Plot each Bode Plots and MIMO Nyquist
+Y_cs = {Y_c};
+Z_gs = {Z_g};
 
-bode_plot_full(fd0, Y_c, Z_g)
+bode_plot_full(fd0, Y_cs, Z_gs)
 plot_eigenvalues_in_sequence(1:length(fd0), E, 1);
