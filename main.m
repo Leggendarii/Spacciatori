@@ -35,4 +35,4 @@ Y_cs = {Y_c};
 Z_gs = {Z_g};
 
 bode_plot_full(fd0, Y_cs, Z_gs)
-plot_eigenvalues_in_sequence(1:length(fd0), E, 1);
+plot_eigenvalues_in_sequence(1:length(fd0), E, 0); % Put 0 1 to show -1 unstable point or 0 to hide it
