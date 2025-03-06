@@ -8,7 +8,7 @@ subplot(2,1,1)
 hold on
 for i=1:length(A)
 GFL = A{i};
-semilogx(fd0, 20*log10(abs(GFL)), 'DisplayName', sprintf('GFL(%d)',i))
+semilogx(fd0, 20*log10(abs(GFL)), 'DisplayName', sprintf('Converter(%d)',i))
 end
 for i=1:length(B)
 Grid = B{i};
@@ -27,7 +27,7 @@ subplot(2,1,2)
 hold on
 for i=1:length(A)
 GFL = A{i};
-semilogx(fd0, angle(GFL), 'DisplayName', sprintf('GFL(%d)',i))
+semilogx(fd0, angle(GFL), 'DisplayName', sprintf('Converter(%d)',i))
 end
 for i=1:length(B)
 Grid = B{i};
